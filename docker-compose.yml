@@ -1,0 +1,11 @@
+version: "3"
+services:
+  blog-react:
+    image: blog-react:latest
+    build:
+      context: .
+    env_file:
+      - ./.env
+    container_name: blog
+    
+    

@@ -1,0 +1,18 @@
+version: "3"
+services:
+  blog-react:
+    image: blog-react:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src:ro
+    env_file:
+      - ./.env
+    container_name: blog
+    
+    

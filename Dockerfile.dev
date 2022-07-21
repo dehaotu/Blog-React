@@ -3,5 +3,7 @@ WORKDIR /app
 ADD package*.json .
 RUN npm install
 ADD . .
+ARG NODE_ENV
+ENV NODE_ENV = $NODE_ENV
 EXPOSE 3000
 CMD ["npm","start"]
