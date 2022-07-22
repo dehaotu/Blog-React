@@ -1,3 +1,4 @@
+# Frontend
 ## Build
 docker build --tag blog-react:latest .       \
 or use docker-compose: \
@@ -23,11 +24,17 @@ mounting for workflow
 docker run -e WATCHPACK_POLLING=true --name blog -v %cd%\src:/app/src:ro -p 3000:3000 -d blog-react:latest 
 
 pass env
-docker run -e WATCHPACK_POLLING=true --env-file ./.env --name blog -v %cd%\src:/app/src:ro -p 3000:3000 -d blog-react:latest 
+docker run --env-file ./.env --name blog -v %cd%\src:/app/src:ro -p 3000:3000 -d blog-react:latest 
 
 use docker-compose
 docker-compose up -d (build & start)
 docker-compose down (quit&remove)
 
-## Access
-localhost:3000
+
+# Backend
+## Compile typescript
+npx tsc --project ./ \
+(destination of the compiled javascripts are in ./dist)
+
+## Run
+nodemon ./dist/index.js
