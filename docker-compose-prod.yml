@@ -1,7 +1,6 @@
 version: "3"
 services:
-  blog-react:
-    image: blog-react:latest
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile.prod
@@ -12,5 +11,4 @@ services:
     env_file:
       - ./.env
     container_name: blog
-    
     

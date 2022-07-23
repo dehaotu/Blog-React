@@ -1,11 +1,23 @@
 version: "3"
 services:
-  blog-react:
-    image: blog-react:latest
+  frontend:
     build:
-      context: .
+      context: ./frontend
     env_file:
       - ./.env
-    container_name: blog
-    
+    container_name: frontend
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    container_name: backend
+  psql-db:
+    image: 'postgres:alpine'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: '0000'
+      POSTGRES_USER: 'root'
+    container_name: postgres
     
