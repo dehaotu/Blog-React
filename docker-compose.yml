@@ -1,23 +1,39 @@
 version: "3"
 services:
-  frontend:
-    build:
-      context: ./frontend
-    env_file:
-      - ./.env
-    container_name: frontend
-  backend:
-    build:
-      context: ./backend
-    ports:
-      - "5000:5000"
-    container_name: backend
   psql-db:
     image: 'postgres:alpine'
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: '0000'
-      POSTGRES_USER: 'root'
+      - POSTGRES_PASSWORD=postgres_password
     container_name: postgres
+  nginx:
+    depends_on:
+      - frontend
+      - backend
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:80"
+    container_name: nginx
+  frontend:
+    build:
+      context: ./frontend
+    stdin_open: true
+    env_file:
+      - ./.env
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    container_name: frontend
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - ./.env
+    ports:
+      - "5000:5000"
+    container_name: backend
     
